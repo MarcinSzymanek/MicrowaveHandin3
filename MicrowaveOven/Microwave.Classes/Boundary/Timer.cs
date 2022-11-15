@@ -21,6 +21,7 @@ namespace Microwave.Classes.Boundary
             timer.AutoReset = true;  // Repeatable timer
         }
 
+        
 
         public void Start(int time)
         {
