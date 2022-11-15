@@ -1,4 +1,5 @@
 ﻿using System;
+using Microwave.App.AudioBass;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
@@ -8,6 +9,7 @@ namespace Microwave.App
     {
         static void Main(string[] args)
         {
+            AudioManager audio = new AudioManager();
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
