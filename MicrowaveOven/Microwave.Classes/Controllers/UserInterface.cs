@@ -16,7 +16,9 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
-
+		private ITimer buzzerTimer;
+		private IBuzzer myBuzzer;
+		
         private int powerLevel = 50;
         private int time = 1;
 
@@ -27,6 +29,8 @@ namespace Microwave.Classes.Controllers
             IDoor door,
             IDisplay display,
             ILight light,
+            ITimer timer,
+            IBuzzer buzzer,
             ICookController cooker)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
@@ -39,6 +43,25 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            myBuzzer = buzzer;
+            buzzerTimer = timer;
+            buzzerTimer.TimerTick += new EventHandler(OnBuzzerTimerEvent);
+            buzzerTimer.Expired += new EventHandler(OnBuzzerTimerExpired);
+        }
+
+        private void SetBuzzer()
+        {
+            buzzerTimer.Start(6);
+        }
+
+        private void OnBuzzerTimerEvent(object sender, EventArgs e)
+        {
+            myBuzzer.Toggle();
+        }
+        private void OnBuzzerTimerExpired(object sender, EventArgs e)
+        {
+            myBuzzer.Stop();
+            buzzerTimer.Stop();
         }
 
         private void ResetValues()
@@ -103,6 +126,11 @@ namespace Microwave.Classes.Controllers
 
         public void OnDoorOpened(object sender, EventArgs e)
         {
+            if (buzzerTimer.TimeRemaining > 0)
+            {
+                myBuzzer.Stop();
+                buzzerTimer.Stop();
+            }
             switch (myState)
             {
                 case States.READY:
@@ -149,7 +177,7 @@ namespace Microwave.Classes.Controllers
                     ResetValues();
                     myDisplay.Clear();
                     myLight.TurnOff();
-                    // Beep 3 times
+                    SetBuzzer();
                     myState = States.READY;
                     break;
             }
