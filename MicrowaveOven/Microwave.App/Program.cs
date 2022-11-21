@@ -1,4 +1,5 @@
 ﻿using System;
+using Microwave.App.AudioBass;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
@@ -8,6 +9,7 @@ namespace Microwave.App
     {
         static void Main(string[] args)
         {
+            AudioManager audio = new AudioManager();
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
@@ -22,11 +24,13 @@ namespace Microwave.App
 
             Light light = new Light(output);
 
-            Microwave.Classes.Boundary.Timer timer = new Timer();
+            Buzzer buzzer = new Buzzer(output);
 
+            Microwave.Classes.Boundary.Timer timer = new Timer();
+            Microwave.Classes.Boundary.Timer buzzerTimer = new Timer();
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
+            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, buzzerTimer, buzzer, cooker);
 
             // Finish the double association
             cooker.UI = ui;
