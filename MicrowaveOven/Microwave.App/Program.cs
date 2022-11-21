@@ -1,5 +1,5 @@
 ﻿using System;
-using Microwave.App.AudioBass;
+using System.Media;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
@@ -9,7 +9,8 @@ namespace Microwave.App
     {
         static void Main(string[] args)
         {
-            AudioManager audio = new AudioManager();
+            SoundPlayer player = new SoundPlayer(sounds.shortBuzz);
+            AudioManager audio = new AudioManager(player);
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
@@ -24,7 +25,7 @@ namespace Microwave.App
 
             Light light = new Light(output);
 
-            Buzzer buzzer = new Buzzer(output);
+            Buzzer buzzer = new Buzzer(output, audio);
 
             Microwave.Classes.Boundary.Timer timer = new Timer();
             Microwave.Classes.Boundary.Timer buzzerTimer = new Timer();
