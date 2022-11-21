@@ -9,8 +9,6 @@ namespace Microwave.App
     {
         static void Main(string[] args)
         {
-            SoundPlayer player = new SoundPlayer(sounds.shortBuzz);
-            AudioManager audio = new AudioManager(player);
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();
@@ -18,6 +16,8 @@ namespace Microwave.App
             Door door = new Door();
 
             Output output = new Output();
+            SoundPlayer player = new SoundPlayer(sounds.shortBuzz);
+            AudioManager audio = new AudioManager(output, player);
 
             Display display = new Display(output);
 

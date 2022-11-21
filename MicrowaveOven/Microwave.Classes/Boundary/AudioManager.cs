@@ -10,7 +10,7 @@ using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
 {
-    public class AudioManager : ISound
+    public class AudioManager : IAudio
     {
     private SoundPlayer? _audioSource;
     private IOutput _output;

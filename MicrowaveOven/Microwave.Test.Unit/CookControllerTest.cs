@@ -82,6 +82,5 @@ namespace Microwave.Test.Unit
 
             powerTube.Received().TurnOff();
         }
-
     }
 }
