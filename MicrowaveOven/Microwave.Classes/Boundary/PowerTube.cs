@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection.Emit;
 using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
@@ -13,22 +15,28 @@ namespace Microwave.Classes.Boundary
         {
             myOutput = output;
         }
-
-        public void TurnOn(int power)
+        enum PowerSetting
         {
-            if (power < 1 || 700 < power)
-            {
-                throw new ArgumentOutOfRangeException("power", power, "Must be between 1 and 700 (incl.)");
-            }
-
-            if (IsOn)
-            {
-                throw new ApplicationException("PowerTube.TurnOn: is already on");
-            }
-
-            myOutput.OutputLine($"PowerTube works with {power}");
-            IsOn = true;
+            Low = 500,
+            Medium = 800,
+            High = 1000,
         }
+
+        static void Main(string[] args)
+        {
+            PowerSetting PowerSettingLow = PowerSetting.Low;
+            Console.WriteLine(PowerSettingLow);
+
+            PowerSetting PowerSettingMedium = PowerSetting.Medium;
+            Console.WriteLine(PowerSettingMedium);
+
+            PowerSetting PowerSettingHigh = PowerSetting.High;
+            Console.WriteLine(PowerSettingHigh);
+
+
+        }
+
+
 
         public void TurnOff()
         {
@@ -39,5 +47,25 @@ namespace Microwave.Classes.Boundary
 
             IsOn = false;
         }
+
+        public void TurnOn(int power)
+        {
+            if (IsOn)
+            {
+                throw new InvalidOperationException("PowerTube.TurnOn: is already on");
+            }
+
+            IsOn = true;
+            myOutput.OutputLine($"PowerTube works with {power}");
+        }
     }
 }
+    
+  
+            
+            
+
+
+
+            
+      

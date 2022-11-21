@@ -2,6 +2,7 @@
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
+
 namespace Microwave.App
 {
     class Program
@@ -19,6 +20,7 @@ namespace Microwave.App
             Display display = new Display(output);
 
             PowerTube powerTube = new PowerTube(output);
+            
 
             Light light = new Light(output);
 
