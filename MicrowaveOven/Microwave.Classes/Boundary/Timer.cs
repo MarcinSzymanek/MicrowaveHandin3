@@ -53,5 +53,10 @@ namespace Microwave.Classes.Boundary
             }
         }
 
+        public void ExtendTime()
+        {
+            TimeRemaining += 10;
+        }
+
     }
 }
