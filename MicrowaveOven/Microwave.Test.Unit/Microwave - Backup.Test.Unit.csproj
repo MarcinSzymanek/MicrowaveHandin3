@@ -23,17 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="sounds.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>sounds.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="sounds.resx">
+    <EmbeddedResource Update="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>sounds.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
