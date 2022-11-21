@@ -9,12 +9,13 @@ namespace Microwave.Test.Unit
     {
         private Buzzer _uut;
         private IOutput _output;
+        private IAudio _audio;
         [SetUp]
         public void Setup()
         {
             _output = Substitute.For<IOutput>();
-
-            _uut = new Buzzer(_output);
+            _audio = Substitute.For<IAudio>();
+            _uut = new Buzzer(_output, _audio);
         }
 
         [Test]
@@ -25,6 +26,13 @@ namespace Microwave.Test.Unit
         }
 
         [Test]
+        public void Toggle_WasOff_AudioReceived_Play()
+        {
+            _uut.Toggle();
+            _audio.Received(1).Play();
+        }
+
+        [Test]
         public void Toggle_WasOn_CorrectOutput()
         {
             _uut.Toggle();
@@ -32,6 +40,13 @@ namespace Microwave.Test.Unit
             _output.Received(1).OutputLine(Arg.Is<string>(str => str.Contains("off")));
         }
 
+        [Test]
+        public void Toggle_WasOn_AudioReceived_Stop()
+        {
+            _uut.Toggle();
+            _uut.Toggle();
+            _audio.Received(1).Stop();
+        }
 
         [Test]
         public void Stop_CorrectOutput()
