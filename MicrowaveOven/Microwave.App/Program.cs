@@ -2,6 +2,7 @@
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 
+
 namespace Microwave.App
 {
     class Program
@@ -19,6 +20,7 @@ namespace Microwave.App
             Display display = new Display(output);
 
             PowerTube powerTube = new PowerTube(output);
+            
 
             Light light = new Light(output);
 
@@ -47,6 +49,17 @@ namespace Microwave.App
             // Wait for input
 
             System.Console.ReadLine();
+
+            // adding watt feature:
+
+            // De nedenstående skal pakkes ind i en switch case tænker jeg hvor 
+            //user skal vælge hvilken watt h*n vil have.
+           // I må gerne arbejde videre, jeg er nød til at smutte ind til de andre og lave projekt.
+
+
+            //powerTube.TurnOn(500);
+            //powerTube.TurnOn(800);
+            //powerTube.TurnOn(1000);
         }
     }
 }
