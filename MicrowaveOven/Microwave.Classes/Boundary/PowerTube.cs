@@ -63,7 +63,8 @@ namespace Microwave.Classes.Boundary
             }
 
             IsOn = true;
-            myOutput.OutputLine($"PowerTube works with {power}");
+            myOutput.OutputLine($"PowerTube is on with {power}");
+            
 
         }
 
