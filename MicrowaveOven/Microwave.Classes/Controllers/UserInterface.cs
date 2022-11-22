@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Controllers
@@ -18,7 +19,8 @@ namespace Microwave.Classes.Controllers
         private IDisplay myDisplay;
 		private ITimer buzzerTimer;
 		private IBuzzer myBuzzer;
-		
+        private IPowerTube myPowerTube;
+
         private int powerLevel = 50;
         private int time = 1;
 
@@ -31,7 +33,9 @@ namespace Microwave.Classes.Controllers
             ILight light,
             ITimer timer,
             IBuzzer buzzer,
-            ICookController cooker)
+            ICookController cooker,
+            IPowerTube powerTube
+            )
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -47,6 +51,16 @@ namespace Microwave.Classes.Controllers
             buzzerTimer = timer;
             buzzerTimer.TimerTick += new EventHandler(OnBuzzerTimerEvent);
             buzzerTimer.Expired += new EventHandler(OnBuzzerTimerExpired);
+
+            powerLevel = PowerTube.Power;
+        }
+
+        public void SetPower()
+        {
+            Console.Write("Write power level needed? [choose between : 500,800,1000]");
+            string p = Console.ReadLine();
+            powerLevel = int.Parse(p);
+
         }
 
         private void SetBuzzer()

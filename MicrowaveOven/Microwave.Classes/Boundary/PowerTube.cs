@@ -11,29 +11,29 @@ namespace Microwave.Classes.Boundary
 
         private bool IsOn = false;
 
+        private int _MaxValue = 700;
+
+        public PowerTube(Output output)
+        {
+            Output = output;
+        }
+
         public PowerTube(IOutput output)
         {
+        }
+
+        public PowerTube(IOutput output, int MaxValue) : this(output)
+        {
+            ChangeMaxValue(MaxValue);
             myOutput = output;
         }
-        enum PowerSetting
+
+        public Output Output { get; }
+
+        public void ChangeMaxValue(int MaxValue)
         {
-            Low = 500,
-            Medium = 800,
-            High = 1000,
-        }
-
-        static void Main(string[] args)
-        {
-            PowerSetting PowerSettingLow = PowerSetting.Low;
-            Console.WriteLine(PowerSettingLow);
-
-            PowerSetting PowerSettingMedium = PowerSetting.Medium;
-            Console.WriteLine(PowerSettingMedium);
-
-            PowerSetting PowerSettingHigh = PowerSetting.High;
-            Console.WriteLine(PowerSettingHigh);
-
-
+            if (MaxValue < 300 || 1000 < MaxValue)
+                throw new ArgumentOutOfRangeException("MaxValue", "MaxValue must be between 300 and 1000");
         }
 
 
@@ -50,6 +50,11 @@ namespace Microwave.Classes.Boundary
 
         public void TurnOn(int power)
         {
+            if (power < 1 || power > _MaxValue)
+            {
+                throw new ArgumentOutOfRangeException("power", $"Must be between 1 and {_MaxValue} (incl.)");
+            }
+
             if (IsOn)
             {
                 throw new InvalidOperationException("PowerTube.TurnOn: is already on");
