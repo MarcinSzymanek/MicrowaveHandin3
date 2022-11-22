@@ -11,12 +11,14 @@ namespace Microwave.Test.Unit
     {
         private PowerTube uut;
         private IOutput output;
+      
+        
 
         [SetUp]
         public void Setup()
         {
             output = Substitute.For<IOutput>();
-            uut = new PowerTube(output);
+
             
         }
 
@@ -27,6 +29,7 @@ namespace Microwave.Test.Unit
         [TestCase(700)]
         public void TurnOn_WasOffCorrectPower_CorrectOutput(int power)
         {
+            uut = new PowerTube(output, 700);
             uut.TurnOn(power);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains($"{power}")));
         }
@@ -38,12 +41,15 @@ namespace Microwave.Test.Unit
         [TestCase(750)]
         public void TurnOn_WasOffOutOfRangePower_ThrowsException(int power)
         {
+            
+            uut = new PowerTube(output, 700);
             Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.TurnOn(power));
         }
 
         [Test]
         public void TurnOff_WasOn_CorrectOutput()
         {
+            uut = new PowerTube(output, 700);
             uut.TurnOn(50);
             uut.TurnOff();
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("off")));
@@ -52,6 +58,7 @@ namespace Microwave.Test.Unit
         [Test]
         public void TurnOff_WasOff_NoOutput()
         {
+            uut = new PowerTube(output, 700);
             uut.TurnOff();
             output.DidNotReceive().OutputLine(Arg.Any<string>());
         }
@@ -59,6 +66,7 @@ namespace Microwave.Test.Unit
         [Test]
         public void TurnOn_WasOn_ThrowsException()
         {
+            uut = new PowerTube(output, 700);
             uut.TurnOn(50);
             Assert.Throws<System.ApplicationException>(() => uut.TurnOn(60));
         }
@@ -66,16 +74,12 @@ namespace Microwave.Test.Unit
         [Test]
         public void TurnOn_WasOff_CorrectOutput()
         {
+            uut = new PowerTube(output, 700);
             uut.TurnOn(50);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("on")));
         }
 
-        [Test]
-        public void ChangedMaxValue_CorrectMaxValue()
-        {
-            uut.ChangeMaxValue(500);
-            Assert.That(uut.TurnOn, Is.EqualTo(500));
-        }
+
       
 
     }

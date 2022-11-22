@@ -19,7 +19,7 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            PowerTube powerTube = new PowerTube(output);
+            PowerTube powerTube = new PowerTube(output, 700);
             
 
             Light light = new Light(output);
@@ -30,15 +30,26 @@ namespace Microwave.App
             Microwave.Classes.Boundary.Timer buzzerTimer = new Timer();
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, buzzerTimer, buzzer, cooker, powerTube);
+            UserInterface ui = new UserInterface(
+                powerButton,
+                timeButton, 
+                startCancelButton, 
+                door,
+                display,
+                light, 
+                buzzerTimer,
+                buzzer,
+                cooker, 
+                powerTube);
 
-            ui.SetPower();
+          
             
             // Finish the double association
             cooker.UI = ui;
 
             // Simulate a simple sequence
 
+            powerButton.Press();
             powerButton.Press();
 
             timeButton.Press();

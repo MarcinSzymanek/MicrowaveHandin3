@@ -35,6 +35,7 @@ namespace Microwave.Classes.Controllers
             IBuzzer buzzer,
             ICookController cooker,
             IPowerTube Power
+            
             )
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
@@ -53,14 +54,6 @@ namespace Microwave.Classes.Controllers
             buzzerTimer.Expired += new EventHandler(OnBuzzerTimerExpired);
 
             myPowerTube = Power;
-        }
-
-        public void SetPower()
-        {
-            Console.Write("Write power level needed? [choose range between : 300-1000]");
-            string p = Console.ReadLine();
-            powerLevel = int.TryParse(p, out int pow) ? pow : throw new ArgumentException($"{p} is not a valid power level");
-
         }
 
         private void SetBuzzer()
@@ -93,7 +86,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.SETPOWER;
                     break;
                 case States.SETPOWER:
-                    powerLevel = (powerLevel >= 700 ? 50 : powerLevel+50);
+                    powerLevel = (powerLevel >= myPowerTube.GetMaxPower() ? 50 : powerLevel+50);
                     myDisplay.ShowPower(powerLevel);
                     break;
             }
