@@ -12,9 +12,5 @@ namespace Microwave.Classes.Interfaces
 
         void TurnOff();
         
-        public int Power { get; set; }
-        
-
-        
     }
 }
