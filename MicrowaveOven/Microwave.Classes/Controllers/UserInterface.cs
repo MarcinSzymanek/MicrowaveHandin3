@@ -34,7 +34,7 @@ namespace Microwave.Classes.Controllers
             ITimer timer,
             IBuzzer buzzer,
             ICookController cooker,
-            IPowerTube powerTube
+            IPowerTube Power
             )
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
@@ -52,7 +52,7 @@ namespace Microwave.Classes.Controllers
             buzzerTimer.TimerTick += new EventHandler(OnBuzzerTimerEvent);
             buzzerTimer.Expired += new EventHandler(OnBuzzerTimerExpired);
 
-            powerLevel = PowerTube.Power;
+            myPowerTube = Power;
         }
 
         public void SetPower()
