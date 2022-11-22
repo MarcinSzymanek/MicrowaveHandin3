@@ -17,6 +17,7 @@ namespace Microwave.Test.Unit
         {
             output = Substitute.For<IOutput>();
             uut = new PowerTube(output);
+            
         }
 
         [TestCase(1)]
@@ -68,5 +69,14 @@ namespace Microwave.Test.Unit
             uut.TurnOn(50);
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("on")));
         }
+
+        [Test]
+        public void ChangedMaxValue_CorrectMaxValue()
+        {
+            uut.ChangeMaxValue(500);
+            Assert.That(uut.TurnOn, Is.EqualTo(500));
+        }
+      
+
     }
 }
