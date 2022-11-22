@@ -11,7 +11,7 @@ namespace Microwave.Classes.Boundary
 
         private bool IsOn = false;
 
-        private int _MaxValue = 700;
+        private int _MaxValue = 1000;
 
 
         public PowerTube(IOutput output)
