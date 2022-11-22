@@ -30,8 +30,10 @@ namespace Microwave.App
             Microwave.Classes.Boundary.Timer buzzerTimer = new Timer();
             CookController cooker = new CookController(timer, display, powerTube);
 
-            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, buzzerTimer, buzzer, cooker);
+            UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, buzzerTimer, buzzer, cooker, powerTube);
 
+            ui.setPower();
+            
             // Finish the double association
             cooker.UI = ui;
 
@@ -50,16 +52,7 @@ namespace Microwave.App
 
             System.Console.ReadLine();
 
-            // adding watt feature:
-
-            // De nedenstående skal pakkes ind i en switch case tænker jeg hvor 
-            //user skal vælge hvilken watt h*n vil have.
-           // I må gerne arbejde videre, jeg er nød til at smutte ind til de andre og lave projekt.
-
-
-            //powerTube.TurnOn(500);
-            //powerTube.TurnOn(800);
-            //powerTube.TurnOn(1000);
+          
         }
     }
 }

@@ -61,5 +61,12 @@ namespace Microwave.Test.Unit
             uut.TurnOn(50);
             Assert.Throws<System.ApplicationException>(() => uut.TurnOn(60));
         }
+
+        [Test]
+        public void TurnOn_WasOff_CorrectOutput()
+        {
+            uut.TurnOn(50);
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("on")));
+        }
     }
 }
