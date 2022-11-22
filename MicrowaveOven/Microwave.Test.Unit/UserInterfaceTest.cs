@@ -341,6 +341,42 @@ namespace Microwave.Test.Unit
             light.Received(1).TurnOff();
         }
 
+        [Test]
+        public void Cooking_CookingDone_buzzerTimerStart()
+        {
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetPower
+            timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+            startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in cooking
+            uut.CookingIsDone();
+            timer.Received(1).Start(Arg.Any<int>());
+        }
+
+        [Test]
+        public void TimerTick_BuzzerToggles()
+        {
+            timer.TimerTick += Raise.Event();
+            buzzer.Received(1).Toggle();
+        }
+
+        [Test]
+        public void TimerExpired_BuzzerOff()
+        {
+            timer.Expired += Raise.Event();
+            buzzer.Received(1).Stop();
+        }
+
+        [Test]
+        public void BuzzTimerOn_DoorOpened_BuzzingOff()
+        {
+            timer.Start(2);
+            timer.TimeRemaining.Returns(1);
+            door.Opened += Raise.Event();
+            timer.Received(1).Stop();
+            buzzer.Received(1).Stop();
+        }
         // ExtendTime()
         [Test]
         public void Cooking_ChangeTimeWhileCooking_ExtendTimeCalled()
