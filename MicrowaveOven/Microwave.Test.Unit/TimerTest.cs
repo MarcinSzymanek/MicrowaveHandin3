@@ -149,14 +149,6 @@ namespace Microwave.Test.Unit
         }
 
         // Extend time()
-        /*public void Tick_ExtendTime_TimeExtendedCorrect()
-        {
-            uut.ExtendTime();
-            int time = uut.TimeRemaining;
-            uut.ExtendTime();
-            Assert.That(uut.TimeRemaining, Is.EqualTo(time + 10));
-        }*/
-
         [TestCase(60, 70)]
         [TestCase(1, 11)]
         [TestCase(10, 20)]

@@ -43,10 +43,7 @@ namespace Microwave.App
 
             // The simple sequence should now run
 
-            //System.Console.WriteLine("When you press enter, the program will stop");
             // Wait for input
-
-            //System.Console.ReadLine();
 
             System.Console.WriteLine("Press 's' to stop the program or press 'e' to extend the program with 10 seconds.");
             var cont = true;
