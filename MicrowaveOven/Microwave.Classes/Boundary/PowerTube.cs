@@ -13,10 +13,6 @@ namespace Microwave.Classes.Boundary
 
         private int _MaxValue = 700;
 
-        public PowerTube(Output output)
-        {
-            Output = output;
-        }
 
         public PowerTube(IOutput output)
         {
@@ -33,10 +29,8 @@ namespace Microwave.Classes.Boundary
         public void ChangeMaxValue(int MaxValue)
         {
             if (MaxValue < 300 || 1000 < MaxValue)
-                throw new ArgumentOutOfRangeException("MaxValue", "MaxValue must be between 300 and 1000");
+                throw new ArgumentOutOfRangeException("MaxValue", "MaxValue must be between 500 and 1000");
         }
-
-
 
         public void TurnOff()
         {
