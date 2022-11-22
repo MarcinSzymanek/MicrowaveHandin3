@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
 using System.Reflection.Emit;
 using Microwave.Classes.Interfaces;
 
@@ -11,26 +12,34 @@ namespace Microwave.Classes.Boundary
 
         private bool IsOn = false;
 
-        private int _MaxValue = 1000;
+        private int _Maxpower;
 
-
-        public PowerTube(IOutput output)
+        enum PowerTubeValue
         {
+            low = 500,
+            medium = 700,
+            high = 1000
         }
 
-        public PowerTube(IOutput output, int MaxValue) : this(output)
+        public PowerTube(IOutput output, int power)
         {
-            ChangeMaxValue(MaxValue);
+            
             myOutput = output;
+            if (power == (int)PowerTubeValue.low || power == (int)PowerTubeValue.medium ||
+                power == (int)PowerTubeValue.high)
+            {
+                _Maxpower = power;
+                
+            }
+           
+            else
+                throw new ArgumentException("Power is not valid");
+
         }
 
         public Output Output { get; }
 
-        public void ChangeMaxValue(int MaxValue)
-        {
-            if (MaxValue < 300 || 1000 < MaxValue)
-                throw new ArgumentOutOfRangeException("MaxValue", "MaxValue must be between 500 and 1000");
-        }
+      
 
         public void TurnOff()
         {
@@ -44,22 +53,23 @@ namespace Microwave.Classes.Boundary
 
         public void TurnOn(int power)
         {
+            if (power > _Maxpower)
+                throw new ArgumentOutOfRangeException("Power is not valid");
+            if (power < 1)
+                throw new ArgumentOutOfRangeException("Power is not valid");
+            if (IsOn)
+            {
+                throw new ApplicationException("PowerTube.TurnOn: is already on");
+            }
+
             IsOn = true;
             myOutput.OutputLine($"PowerTube works with {power}");
 
-            if (power < 1 || power > _MaxValue)
-            {
-                throw new ArgumentOutOfRangeException("power", $"Must be between 1 and {_MaxValue} (incl.)");
-            }
+        }
 
-            if (IsOn)
-            {
-                throw new InvalidOperationException("PowerTube.TurnOn: is already on");
-            }
-
-           
-     
-
+        public int GetMaxPower()
+        {
+            return _Maxpower;
         }
     }
 }
