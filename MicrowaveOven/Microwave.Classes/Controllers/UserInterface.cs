@@ -57,9 +57,9 @@ namespace Microwave.Classes.Controllers
 
         public void SetPower()
         {
-            Console.Write("Write power level needed? [choose between : 500,800,1000]");
+            Console.Write("Write power level needed? [choose range between : 300-1000]");
             string p = Console.ReadLine();
-            powerLevel = int.Parse(p);
+            powerLevel = int.TryParse(p, out int pow) ? pow : throw new ArgumentException($"{p} is not a valid power level");
 
         }
 
