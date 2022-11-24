@@ -1,0 +1,32 @@
+@startuml
+class UserInterface
+class Button
+class Display
+class Output
+class Light
+class CookController
+class Timer
+class PowerTube
+class Buzzer
+class AudioManager
+
+Button <. UserInterface :3
+Button -> UserInterface
+UserInterface -up-> Display
+Display -right-> Output
+UserInterface -down-> Light
+Light -up-> Output
+UserInterface <-right-> CookController
+CookController -up-> Display
+CookController -> PowerTube
+CookController <-down-> Timer
+UserInterface <-> Timer
+UserInterface -up-> Buzzer
+Buzzer -> Output
+AudioManager <- Buzzer
+AudioManager -> Output
+PowerTube -up-> Output
+UserInterface .down.> Door
+Door -up-> UserInterface
+
+@enduml

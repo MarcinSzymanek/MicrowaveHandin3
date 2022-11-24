@@ -1,0 +1,12 @@
+@startuml
+[*] --> Ready
+Ready -right-> Door_Open : DoorsOpens/Turn on light
+DoorOpen -> Ready : DoorCloses/Turn off light
+Ready -down-> Set_Power : Press PowerButton /Display Power
+Set_Power -> Set_Power : Press PowerB/ Increase Power, Display Power
+Set_Power -down-> Set_Time : TimeButtonPressed/Display Time
+Set_Time -> Set_Time : TimeB Pressed/Increase Time, Display Time
+Set_Time -down-> Cooking : Start-Cancel Button Pressed/ Start cooking, Turn On Light
+Set_Power -up-> Door_Open : DoorIsOpened
+Cooking -> Door_Open : DoorIsOpened/Stop Cooking 
+@enduml
