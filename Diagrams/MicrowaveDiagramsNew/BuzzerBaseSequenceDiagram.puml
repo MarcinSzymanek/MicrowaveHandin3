@@ -1,0 +1,35 @@
+@startuml
+participant UserInterface
+participant CookController
+participant Display
+participant Light
+participant Timer
+participant Buzzer
+participant Output
+
+UserInterface <<- CookController : CookingIsDone()
+activate UserInterface
+UserInterface -> Display : Clear()
+Display -> Output : Log()
+UserInterface -> Light : TurnOff()
+Light -> Output : Log()
+UserInterface -> Buzzer : Toggle()
+UserInterface -> Timer : Start()
+deactivate UserInterface
+activate Timer
+loop repeat 5 times
+    Timer -> Timer : 1 sec passed
+    Timer ->> UserInterface : OnTimerTick()
+    activate UserInterface
+    UserInterface ->> Buzzer : Toggle()
+    deactivate UserInterface
+    activate Buzzer
+    Output <- Buzzer : Log()
+    deactivate Buzzer
+end loop
+
+Timer ->> UserInterface : OnTimerExpire()
+activate UserInterface
+UserInterface -> Timer : Stop()
+deactivate Timer
+@enduml

@@ -5,9 +5,8 @@ namespace Microwave.Classes.Boundary
     public class Buzzer : IBuzzer
     {
         private IOutput myOutput;
-        #nullable enable
         private IAudio _soundModule;
-        #nullable disable
+
         private bool isOn = false;
         
         public Buzzer(IOutput output, IAudio soundModule)
