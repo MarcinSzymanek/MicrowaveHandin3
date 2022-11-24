@@ -64,8 +64,6 @@ namespace Microwave.Classes.Boundary
 
             IsOn = true;
             myOutput.OutputLine($"PowerTube is on with {power}");
-            
-
         }
 
         public int GetMaxPower()

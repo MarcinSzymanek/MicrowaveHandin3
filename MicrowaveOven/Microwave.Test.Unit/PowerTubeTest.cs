@@ -18,8 +18,6 @@ namespace Microwave.Test.Unit
         public void Setup()
         {
             output = Substitute.For<IOutput>();
-
-            
         }
 
         [TestCase(1)]
@@ -79,8 +77,21 @@ namespace Microwave.Test.Unit
             output.Received().OutputLine(Arg.Is<string>(str => str.Contains("on")));
         }
 
+        [Test]
+        public void TurnOn_WasOff_CorrectPower()
+        {
+            uut = new PowerTube(output, 700);
+            uut.TurnOn(50);
+            output.Received().OutputLine(Arg.Is<string>(str => str.Contains("50")));
+        }
+            
+        [Test]
+        public void GetMaxPower_wasCorrect()
+        {
+            uut = new PowerTube(output, 700);
+            Assert.That(uut.GetMaxPower, Is.EqualTo(700));
+        }
 
-      
 
     }
 }
