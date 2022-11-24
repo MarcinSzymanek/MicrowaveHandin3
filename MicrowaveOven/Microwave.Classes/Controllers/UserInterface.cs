@@ -58,7 +58,8 @@ namespace Microwave.Classes.Controllers
 
         private void SetBuzzer()
         {
-            buzzerTimer.Start(6);
+            myBuzzer.Toggle();
+            buzzerTimer.Start(5); // turns off after 1 sec. turns on after 2. turns off after 3 etc.
         }
 
         private void OnBuzzerTimerEvent(object sender, EventArgs e)

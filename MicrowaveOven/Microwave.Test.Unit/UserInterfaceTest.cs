@@ -361,7 +361,7 @@ namespace Microwave.Test.Unit
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             // Now in cooking
             uut.CookingIsDone();
-            timer.Received(1).Start(Arg.Any<int>());
+            timer.Received(1).Start(5);
         }
 
         [Test]
